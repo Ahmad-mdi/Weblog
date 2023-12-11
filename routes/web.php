@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,18 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/posts/{slug}', function () {
-    $posts = [
-        'first-post' => [
-            'title' => 'helo evry one',
-        ],
-        'second-post' => [
-            'title' => 'hello',
-        ]
-    ];
-   return view('welcome',compact($posts));
-});
-
-Route::get('/welcome',function (){
-   return view('welcome',compact('name'));
-});
+Route::get('/',[HomeController::class,'index']);
+Route::get('/posts/{slug}',[PostController::class,'show']);
+Route::get('/post/create',[PostController::class,'create']);
+Route::post('/post/store',[PostController::class,'store']);
+/*Route::get('/welcome',function (){
+   return view('welcome');
+});*/
