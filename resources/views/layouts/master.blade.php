@@ -87,17 +87,26 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="/" class="nav-item nav-link">Home</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Category</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Sub Item 1</a>
-                            <a href="#" class="dropdown-item">Sub Item 2</a>
+                            <a href="/category" class="dropdown-item">List</a>
+                            <a href="/category/create" class="dropdown-item">New</a>
                         </div>
                     </div>
-                    <a href="single-page.html" class="nav-item nav-link active">Single Page</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    <a href="/post/create" class="nav-item nav-link active">New Post</a>
+                    @if (auth()->check())
+                        <form action="{{url('/logout')}}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <input type="submit" class="btn btn-danger-sm" value="Logout">
+                        </form>
+                    @else
+                        <a href="{{url('/login/create')}}" class="nav-item nav-link">Login/Signup</a>
+                    @endif
                 </div>
+                @if(auth()->check()) welcome {{auth()->user()->name}} to web app @endif
                 <div class="social ml-auto">
                     <a href=""><i class="fab fa-twitter"></i></a>
                     <a href=""><i class="fab fa-facebook-f"></i></a>
