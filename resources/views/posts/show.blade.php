@@ -23,47 +23,17 @@
                             <img src="/img/news-825x525.jpg" />
                         </div>
                         <div class="sn-content">
-                            <h1 class="sn-title">{{$post->title}}</h1>
+                            <h1 class="sn-title">{{$post->title}}
+                                <a href="/post/{{$post->slug}}/edit" class="btn btn-info">Edit</a>
+                                <form method="POST" action="/post/{{$post->slug}}/delete">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="submit" value="delete" class="btn btn-danger">
+                                </form>
+                            </h1>
                             <p>
                                 {{$post->body}}
                             </p>
-                        </div>
-                    </div>
-                    <div class="sn-related">
-                        <h2>Related News</h2>
-                        <div class="row sn-slider">
-                            <div class="col-md-4">
-                                <div class="sn-img">
-                                    <img src="/img/news-350x223-1.jpg" />
-                                    <div class="sn-title">
-                                        <a href="">Interdum et fames ac ante</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="sn-img">
-                                    <img src="/img/news-350x223-2.jpg" />
-                                    <div class="sn-title">
-                                        <a href="">Interdum et fames ac ante</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="sn-img">
-                                    <img src="/img/news-350x223-3.jpg" />
-                                    <div class="sn-title">
-                                        <a href="">Interdum et fames ac ante</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="sn-img">
-                                    <img src="/img/news-350x223-4.jpg" />
-                                    <div class="sn-title">
-                                        <a href="">Interdum et fames ac ante</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

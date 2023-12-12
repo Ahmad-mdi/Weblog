@@ -1,32 +1,38 @@
 @extends('layouts.master')
+
 @section('content')
     <div class="contact">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-8">
                     <div class="contact-form">
-                        <form method="POST" action="{{url('/post/store')}}">
+                        <form method="POST" action="/post/{{$post->slug}}">
                             @csrf
+                            @method('PUT')
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <input name="title" type="text" class="form-control" placeholder="Enter Your Title">
+                                    <input name="title" type="text" class="form-control" placeholder="Enter Your Title" value="{{$post->title}}">
                                     @error('title')<li class="text-danger"> {{$message}} </li>@enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input name="slug" type="text" class="form-control" placeholder="Enter your slug">
+                                    <input name="slug" type="text" class="form-control" placeholder="Enter your slug" value="{{$post->slug}}">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <select class="form-control" name="category_id">
-                                        @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->title}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <select class="form-control" name="category_id">
+                                    @foreach($categories as $category)
+                                        <option
+                                            @if ($category->id == $post->category_id)
+                                                selected
+                                            @endif
+                                            value="{{$category->id}}">{{$category->title}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
-                                <textarea name="body" class="form-control" rows="5" placeholder="Enter your body"></textarea>
+                                <textarea name="body" class="form-control" rows="5" placeholder="Enter your body">{{$post->body}}</textarea>
                             </div>
-                            <div><button class="btn" type="submit">Insert</button></div>
+                            <div><button class="btn btn-info" type="submit">Update</button></div>
                         </form>
                         @include('layouts.errors')
                     </div>
