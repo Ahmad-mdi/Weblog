@@ -24,6 +24,7 @@ class LoginController extends Controller
         return redirect('/');
     }
 
+    //logout:
     public function destroy()
     {
         auth()->logout();
