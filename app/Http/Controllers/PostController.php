@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewPostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Services\PostService;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -21,14 +22,15 @@ class PostController extends Controller
         return view('posts.create',compact('categories'));
     }
 
-    public function store(NewPostRequest $request)
+    public function store(NewPostRequest $request,PostService $postService)
     {
-        Post::query()->create([
+        $postService->add($request);
+        /*Post::query()->create([
             'title' => $request->title,
             'slug' => $request->slug,
             'body' => $request->body,
             'category_id' => $request->category_id,
-        ]);
+        ]);*/
         return redirect('/post/create');
     }
 
