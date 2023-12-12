@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $guarded = [];
     use HasFactory;
+    protected $guarded = [];
+    //search post by slug (route model binding)
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }
