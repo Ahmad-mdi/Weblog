@@ -18,8 +18,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'password',
+        'name', 'email', 'phone', 'password','role_id'
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 
     /**
      * The attributes that should be hidden for serialization.
