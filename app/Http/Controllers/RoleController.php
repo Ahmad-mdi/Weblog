@@ -13,13 +13,14 @@ class RoleController extends Controller
 {
     public function index()
     {
+        $this->authorize('read-role');
         $roles = Role::all();
         return view('roles.index', compact('roles'));
     }
 
     public function create()
     {
-
+        $this->authorize('create-role');
         return view('roles.create', [
             'permissions' => Permission::all(),
         ]);
@@ -39,6 +40,7 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
+        $this->authorize('update-role');
         return view('roles.edit', [
             'role' => $role,
             'permissions' => Permission::all(),
@@ -54,6 +56,7 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
+        $this->authorize('delete-role');
         $role->permissions()->detach();
         $role->delete();
         return redirect('/roles');
