@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckPermission;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    //authorize by middleware:
+    /*public function __construct()
+    {
+        $this->middleware(CheckPermission::class.":read-category")->only('index');
+    }*/
 
     public function index()
     {
+        $this->authorize('read-category');
         $categories = Category::all();
         return view('categories.list',compact('categories'));
     }
