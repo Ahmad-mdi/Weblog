@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Permission;
+use App\Models\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +29,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        foreach ($this->getAllPermissions() as $permission){
+            Gate::define($permission->title , function (User $user) use ($permission){
+                $isAuthorized =  $user->role->hasPermission($permission);
+                return $isAuthorized
+                    ? Response::allow()
+                    : Response::deny('دسترسی شما به محتوا غیرمجاز است');
+            });
+        }
+    }
+    public function getAllPermissions()
+    {
+        return Permission::with('roles')->get();
     }
 }
