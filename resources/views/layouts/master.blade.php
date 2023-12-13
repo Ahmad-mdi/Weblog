@@ -88,20 +88,26 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
                     <a href="/" class="nav-item nav-link">Home</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Category</a>
-                        <div class="dropdown-menu">
-                            <a href="/category" class="dropdown-item">List</a>
-                            <a href="/category/create" class="dropdown-item">New</a>
+                    <a href="/users" class="nav-item nav-link">UserList</a>
+                    @can('create-category',\App\Models\Category::class)
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Category</a>
+                            <div class="dropdown-menu">
+                                <a href="/category" class="dropdown-item">List</a>
+                                <a href="/category/create" class="dropdown-item">New</a>
+                            </div>
                         </div>
-                    </div>
-                    <a href="/post/create" class="nav-item nav-link active">New Post</a>
+                    @endcan
+                    @can('create-post',\App\Models\Post::class)
+                        <a href="/post/create" class="nav-item nav-link active">New Post</a>
+                    @endcan
                     @if (auth()->check())
                         <form action="{{url('/logout')}}" method="POST">
                             @csrf
                             @method('delete')
                             <input type="submit" class="btn btn-danger-sm" value="Logout">
                         </form>
+                        <a href="/profile" class="nav-item nav-link">Profile</a>
                     @else
                         <a href="{{url('/login/create')}}" class="nav-item nav-link">Login/Signup</a>
                     @endif
