@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
@@ -17,6 +19,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login/store', [LoginController::class, 'store']);
     Route::get('/signup/create', [SignupController::class, 'create']);
     Route::post('/signup/store', [SignupController::class, 'store']);
+
 });
 Route::delete('/logout', [LoginController::class, 'destroy']);
 //*****************************************************************************************************************************
@@ -37,6 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::get('/profile/edit', [ProfileController::class, 'edit']);
     Route::put('/profile/update', [ProfileController::class, 'update']);
+    Route::get('/changePass', [ChangePasswordController::class, 'edit']);
+    Route::put('/changePass', [ChangePasswordController::class, 'update']);
 
     Route::get('/category', [CategoryController::class, 'index']);
     Route::get('/category/create', [CategoryController::class, 'create']);
